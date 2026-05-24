@@ -2151,6 +2151,7 @@
           card.className =
             "skill-card group w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-[12.5%] h-28 border-r-2 border-b-2 border-white/20 transition-all duration-300 hover:z-10 relative cursor-hover p-2";
           const isGithub = s.name.toLowerCase() === "github";
+          const isSystemDesign = s.name.toLowerCase() === "system design";
           const palette = skillPalette(s.name);
           card.innerHTML = `
             <div class="skill-inner">
@@ -2159,12 +2160,14 @@
                 ${
                   isGithub
                     ? '<i class="ri-github-fill text-2xl text-white"></i>'
-                    : `<div class="text-white font-black font-display text-xl uppercase">${s.name}</div>`
+                    : isSystemDesign
+                      ? `<div class="text-white font-black font-display text-lg uppercase"><div>system</div><div>Design</div></div>`
+                      : `<div class="text-white font-black font-display text-xl uppercase">${s.name}</div>`
                 }
               </div>
               <div class="skill-face skill-back" style="background:${palette.back};color:${palette.text};">
                 <div class="font-mono text-[10px] uppercase tracking-wide">${s.cat}</div>
-                <div class="font-black font-display text-xl uppercase">${s.name}</div>
+                <div class="font-black font-display text-xl uppercase">${isSystemDesign ? "<div>system</div><div>Design</div>" : s.name}</div>
                 <div class="font-mono text-[10px] opacity-70">Swipe to deploy</div>
               </div>
             </div>
