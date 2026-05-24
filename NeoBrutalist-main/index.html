@@ -764,7 +764,7 @@
         <div
           class="border-t-4 border-white mt-8 pt-4 flex justify-between font-mono text-xs text-gray-500"
         >
-          <span>TOTAL_NODES: 25</span>
+          <span>TOTAL_NODES: 26</span>
           <span>SYSTEM: READY</span>
         </div>
       </div>
@@ -2135,6 +2135,7 @@
           { cat: "SKILL", name: "HLD" },
           { cat: "SKILL", name: "LLD" },
           { cat: "SKILL", name: "EXPRESS" },
+          { cat: "SKILL", name: "System Design" },
           { cat: "FUTURE", name: "AI/ML" },
           { cat: "DESIGN", name: "Graphic" },
           { cat: "DESIGN", name: "UI/UX" },
@@ -2202,6 +2203,8 @@
         if (key === "hld") return { back: "#6366F1", text: "#ffffff" }; // indigo
         if (key === "lld") return { back: "#0EA5E9", text: "#ffffff" }; // sky blue
         if (key === "express") return { back: "#DC2626", text: "#ffffff" }; // design red
+        if (key === "system design")
+          return { back: "#F97316", text: "#ffffff" }; // orange
         return { back: "#33ff57", text: "#0b0b0b" };
       }
 
