@@ -176,18 +176,29 @@
       /* Animations */
       .marquee-container {
         overflow: hidden;
+        position: relative;
+        border-top: 4px solid #000;
+        border-bottom: 4px solid #000;
+        background: linear-gradient(
+          90deg,
+          #0f172a 0%,
+          #1d4ed8 50%,
+          #0f172a 100%
+        );
       }
 
       .marquee-content {
         display: flex;
-        animation: scroll 40s linear infinite;
+        gap: 14px;
+        animation: scroll 26s linear infinite;
         width: max-content;
         will-change: transform;
+        padding: 12px 0;
       }
 
       .marquee-container:hover .marquee-content {
         animation-play-state: paused;
-        filter: brightness(1.1) drop-shadow(0 0 10px rgba(51, 255, 87, 0.5));
+        filter: brightness(1.08) drop-shadow(0 0 14px rgba(51, 255, 87, 0.45));
         transition: filter 0.5s ease;
       }
 
@@ -201,10 +212,362 @@
       }
 
       .marquee-content span {
-        padding: 0 40px;
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 18px;
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-shadow: none;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
+        white-space: nowrap;
+      }
+
+      .marquee-title {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        position: absolute;
+        top: -14px;
+        left: 24px;
+        z-index: 2;
+        background: #fbff48;
+        color: #121212;
+        border: 3px solid #000;
+        padding: 6px 12px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        box-shadow: 4px 4px 0 #000;
+      }
+
+      /* Projects storytelling section */
+      .projects-section {
+        position: relative;
+        overflow: clip;
+      }
+
+      .projects-scroll-shell {
+        height: 420vh;
+        min-height: 4200px;
+      }
+
+      .projects-sticky {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .projects-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 20;
+        width: 100%;
+        height: 4px;
+        background: rgba(0, 0, 0, 0.14);
+      }
+
+      .projects-progress-bar {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        transform: scaleX(0);
+        transform-origin: left center;
+        will-change: transform;
+      }
+
+      .projects-stage {
+        position: relative;
+        height: 100%;
+        isolation: isolate;
+      }
+
+      .projects-row {
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        overflow: visible;
+        pointer-events: none;
+      }
+
+      .projects-row--top {
+        top: 16vh;
+      }
+
+      .projects-row--bottom {
+        bottom: 13vh;
+      }
+
+      .projects-row--mobile {
+        display: none;
+      }
+
+      .projects-row__track {
+        display: flex;
+        gap: clamp(16px, 2vw, 30px);
+        width: max-content;
+        padding-inline: clamp(20px, 8vw, 100px);
+        will-change: transform;
+        transform: translate3d(0, 0, 0);
+      }
+
+      .project-card {
+        flex: 0 0 clamp(300px, 30vw, 450px);
+        opacity: var(--card-opacity, 1);
+        pointer-events: auto;
+        will-change: transform, opacity;
+        transform: translate3d(0, var(--card-y, 0px), 0)
+          rotate(var(--card-rotation, 0deg)) scale(var(--card-scale, 1));
+        transform-origin: center center;
+      }
+
+      .project-card__surface {
+        height: 100%;
+        background: #fff;
+        border: 4px solid #000;
+        box-shadow: 8px 8px 0 #000;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.2s ease;
+      }
+
+      .project-card:hover .project-card__surface,
+      .project-card:focus-within .project-card__surface {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 12px 12px 0 #000;
+      }
+
+      .project-card__media {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        border-bottom: 4px solid #000;
+        background: #f9f9f9;
+      }
+
+      .project-card__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: translate3d(0, var(--media-parallax, 0px), 0) scale(1.08);
+        transition: transform 0.18s ease;
+      }
+
+      .project-card:hover .project-card__media img,
+      .project-card:focus-within .project-card__media img {
+        transform: translate3d(0, calc(var(--media-parallax, 0px) - 6px), 0)
+          scale(1.12);
+      }
+
+      .project-card__media-badge {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 48px;
+        padding: 8px 10px;
+        background: #fbff48;
+        color: #000;
+        border: 3px solid #000;
+        box-shadow: 4px 4px 0 #000;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .project-card__body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: clamp(18px, 2vw, 26px);
+        color: #121212;
+      }
+
+      .project-card__eyebrow {
+        margin-bottom: 8px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: rgba(18, 18, 18, 0.6);
+      }
+
+      .project-card__title {
+        margin-bottom: 12px;
+        font-size: clamp(1.7rem, 2.5vw, 2.4rem);
+        line-height: 0.95;
         font-weight: 900;
-        letter-spacing: 2px;
-        text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+      }
+
+      .project-card__description {
+        margin-bottom: 16px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: clamp(0.72rem, 0.8vw, 0.92rem);
+        line-height: 1.7;
+        color: rgba(18, 18, 18, 0.8);
+      }
+
+      .project-card__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .project-card__tag {
+        padding: 7px 10px;
+        border: 2px solid #000;
+        box-shadow: 3px 3px 0 #000;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: #fff;
+      }
+
+      .project-card__footer {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .project-card__button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        border: 2px solid #000;
+        background: #33ff57;
+        color: #000;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+        box-shadow: 4px 4px 0 #000;
+        transition:
+          transform 0.2s ease,
+          background-color 0.2s ease,
+          color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .project-card__button:hover,
+      .project-card__button:focus-visible {
+        background: #000;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 6px 6px 0 #000;
+      }
+
+      .project-card__index {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        color: rgba(18, 18, 18, 0.5);
+      }
+
+      .projects-mobile-note {
+        display: none;
+      }
+
+      @media (max-width: 1024px) {
+        .projects-row--top {
+          top: 14vh;
+        }
+
+        .projects-row--bottom {
+          bottom: 12vh;
+        }
+
+        .project-card {
+          flex-basis: clamp(260px, 42vw, 360px);
+        }
+      }
+
+      @media (max-width: 767px) {
+        .projects-scroll-shell {
+          height: 360vh;
+        }
+
+        .projects-row--desktop {
+          display: none;
+        }
+
+        .projects-row--mobile {
+          display: flex;
+          top: 50%;
+          bottom: auto;
+        }
+
+        .project-card {
+          flex-basis: clamp(260px, 82vw, 340px);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .projects-scroll-shell {
+          height: auto;
+        }
+
+        .projects-sticky {
+          position: relative;
+          height: auto;
+        }
+
+        .projects-stage {
+          height: auto;
+          display: grid;
+          gap: 24px;
+        }
+
+        .projects-row {
+          position: static;
+          transform: none !important;
+          display: block;
+        }
+
+        .projects-row__track {
+          transform: none !important;
+          width: 100%;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .projects-row--mobile {
+          display: none;
+        }
+
+        .project-card,
+        .project-card__surface,
+        .project-card__media img {
+          transition: none !important;
+          animation: none !important;
+          transform: none !important;
+          opacity: 1 !important;
+        }
       }
 
       /* Reveal Animation */
@@ -665,12 +1028,26 @@
       </div>
     </section>
 
-    <div class="border-b-4 border-black bg-neo-blue py-3 relative z-20">
-      <div class="marquee-container font-mono font-bold text-2xl text-white">
+    <div class="relative z-20 border-b-4 border-black bg-neo-blue py-5">
+      <div class="marquee-title">PROJECT FOCUS</div>
+      <div class="marquee-container font-mono font-bold text-xl text-white">
         <div class="marquee-content">
-          /// DATA SCIENCE /// AI ENGINEERING /// BLOCKCHAIN /// DSA /// PYTHON
-          /// C++ /// LINUX /// AUTOMATION /// MACHINE LEARNING /// SYSTEM
-          DESIGN /// OPEN FOR WORK ///
+          <span>FULL STACK BLOCKCHAIN</span>
+          <span>DAPP DEVELOPMENT</span>
+          <span>SMART CONTRACTS</span>
+          <span>WEB3 UI</span>
+          <span>REACT</span>
+          <span>PYTHON</span>
+          <span>NODE.JS</span>
+          <span>OPEN SOURCE</span>
+          <span>FULL STACK BLOCKCHAIN</span>
+          <span>DAPP DEVELOPMENT</span>
+          <span>SMART CONTRACTS</span>
+          <span>WEB3 UI</span>
+          <span>REACT</span>
+          <span>PYTHON</span>
+          <span>NODE.JS</span>
+          <span>OPEN SOURCE</span>
         </div>
       </div>
     </div>
@@ -1252,438 +1629,63 @@
 
     <section
       id="projects"
-      class="py-24 bg-neo-yellow border-t-4 border-black px-4 overflow-hidden"
+      class="projects-section bg-neo-yellow border-t-4 border-black"
     >
-      <div class="max-w-7xl mx-auto">
-        <h2
-          class="text-6xl md:text-9xl font-black mb-16 uppercase tracking-tighter text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)] text-stroke-black"
-          style="-webkit-text-stroke: 3px black"
-        >
-          Selected Works
-        </h2>
+      <div class="projects-scroll-shell">
+        <div class="projects-sticky">
+          <div class="projects-progress" aria-hidden="true">
+            <span
+              id="projects-progress-bar"
+              class="projects-progress-bar"
+            ></span>
+          </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <article
-            class="reveal group bg-white border-4 border-black p-0 shadow-hard overflow-hidden hover:shadow-hard-lg transition-all"
+          <div
+            class="projects-stage max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-10"
           >
-            <div
-              class="border-b-4 border-black aspect-video relative overflow-hidden group-hover:brightness-125 transition-all duration-300"
-            >
-              <img
-                src="pdf-tool.png"
-                alt="PDF Tools Suite"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="p-6">
-              <div class="flex justify-between items-start gap-4">
-                <div class="flex-1">
-                  <h3
-                    class="text-4xl font-black uppercase mb-3 group-hover:text-neo-red transition-colors glitch-hover"
-                  >
-                    YuktiCanvas Platform
-                  </h3>
-                  <p
-                    class="font-mono text-sm mb-4 text-gray-700 leading-relaxed"
-                  >
-                    Collaborative visual workspace for creating diagrams,
-                    flowcharts, mind maps, wireframes, system designs and
-                    brainstorming boards with real-time collaboration and
-                    infinite canvas support.
-                  </p>
-                  <div class="space-y-2 mb-4">
-                    <p
-                      class="font-mono text-xs text-neo-black font-bold uppercase"
-                    >
-                      Technology Stack:
-                    </p>
-                    <div
-                      class="flex gap-2 font-mono text-xs font-bold flex-wrap"
-                    >
-                      <span
-                        class="bg-neo-blue text-white px-3 py-1 border border-black"
-                        >Next.js</span
-                      >
-                      <span
-                        class="bg-neo-orange text-black px-3 py-1 border border-black"
-                        >PyPDF2</span
-                      >
-                      <span
-                        class="bg-neo-purple text-white px-3 py-1 border border-black"
-                        >TypeScript</span
-                      >
-                      <span
-                        class="bg-neo-green text-black px-3 py-1 border border-black"
-                        >Supabase</span
-                      >
-                      <span
-                        class="bg-neo-red text-black px-3 py-1 border border-black"
-                        >MERN</span
-                      >
-                    </div>
-                  </div>
-                  <div class="space-y-1">
-                    <p class="font-mono text-[11px] text-gray-600">
-                      <i class="ri-checkbox-circle-fill text-neo-green"></i>
-                      Infinite zoomable canvas with vector rendering
-                    </p>
-                    <p class="font-mono text-[11px] text-gray-600">
-                      <i class="ri-checkbox-circle-fill text-neo-green"></i>
-                      Create diagrams, flowcharts and mind maps
-                    </p>
-                    <p class="font-mono text-[11px] text-gray-600">
-                      <i class="ri-checkbox-circle-fill text-neo-green"></i>
-                      Real-time collaboration and project sharing
-                    </p>
-                  </div>
-                </div>
-                <a
-                  href="https://github.com/xynextrixor/Yukticanvas"
-                  class="w-14 h-14 border-2 border-black bg-neo-green text-black flex items-center justify-center hover:bg-black hover:text-neo-green transition-all cursor-hover shadow-hard-sm font-black text-2xl flex-shrink-0 mt-1"
-                  title="View on GitHub"
+            <div class="flex items-end justify-between gap-6 mb-6 md:mb-8 pt-3">
+              <div>
+                <p
+                  class="font-mono text-[11px] md:text-sm uppercase tracking-[0.4em] text-black/70 mb-3"
                 >
-                  <i class="ri-arrow-right-up-line"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <article
-            class="reveal group bg-white border-4 border-black p-4 shadow-hard mt-0 md:mt-20 overflow-hidden"
-          >
-            <div
-              class="aspect-video relative overflow-hidden group-hover:brightness-125 transition-all duration-300"
-            >
-              <img
-                src="jarvis.png"
-                alt="Local Jarvis"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="flex justify-between items-start gap-4">
-              <div class="flex-1">
-                <h3
-                  class="text-4xl font-black uppercase mb-3 group-hover:text-neo-blue transition-colors glitch-hover"
-                >
-                  SanskarVault Platform
-                </h3>
-                <p class="font-mono text-sm mb-4 text-gray-700 leading-relaxed">
-                  An intelligent educational platform designed for students to
-                  access previous year papers, AI-generated notes, curated study
-                  materials, and personalized learning resources through a
-                  modern and user-friendly interface.
+                  Selected Works
                 </p>
-                <div class="space-y-2 mb-4">
-                  <p
-                    class="font-mono text-xs text-neo-black font-bold uppercase"
-                  >
-                    Technology Stack:
-                  </p>
-                  <div class="flex gap-2 font-mono text-xs font-bold flex-wrap">
-                    <span
-                      class="bg-neo-blue text-white px-3 py-1 border border-black"
-                      >MERN</span
-                    >
-                    <span
-                      class="bg-neo-orange text-black px-3 py-1 border border-black"
-                      >SUPABASE</span
-                    >
-                    <span
-                      class="bg-neo-purple text-white px-3 py-1 border border-black"
-                      >BUCKETS</span
-                    >
-                    <span
-                      class="bg-neo-green text-black px-3 py-1 border border-black"
-                      >FIGMA</span
-                    >
-                  </div>
-                </div>
-              </div>
-              <a
-                href="https://github.com/xynextrixor/sanskarvault"
-                class="w-14 h-14 border-2 border-black bg-neo-green text-black flex items-center justify-center hover:bg-black hover:text-neo-green transition-all cursor-hover shadow-hard-sm font-black text-2xl flex-shrink-0 mt-1"
-                title="View on GitHub"
-              >
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
-            </div>
-          </article>
-
-          <article
-            class="reveal group bg-white border-4 border-black p-4 shadow-hard overflow-hidden"
-          >
-            <div
-              class="aspect-video relative overflow-hidden group-hover:brightness-125 transition-all duration-300"
-            >
-              <img
-                src="automation.png"
-                alt="WhatsApp Automation"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="flex justify-between items-start gap-4">
-              <div class="flex-1">
-                <h3
-                  class="text-4xl font-black uppercase mb-3 group-hover:text-neo-pink transition-colors glitch-hover"
+                <h2
+                  class="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)] text-stroke-black"
+                  style="-webkit-text-stroke: 3px black"
                 >
-                  WhatsApp Automation
-                </h3>
-                <p class="font-mono text-sm mb-4 text-gray-700 leading-relaxed">
-                  An intelligent WhatsApp bot that automates messaging, handles
-                  multiple chats, and integrates with APIs for smart responses.
-                </p>
-                <div class="space-y-2 mb-4">
-                  <p
-                    class="font-mono text-xs text-neo-black font-bold uppercase"
-                  >
-                    Technology Stack:
-                  </p>
-                  <div class="flex gap-2 font-mono text-xs font-bold flex-wrap">
-                    <span
-                      class="bg-neo-blue text-white px-3 py-1 border border-black"
-                      >Python</span
-                    >
-                    <span
-                      class="bg-neo-orange text-black px-3 py-1 border border-black"
-                      >Selenium</span
-                    >
-                    <span
-                      class="bg-neo-purple text-white px-3 py-1 border border-black"
-                      >Bot Framework</span
-                    >
-                    <span
-                      class="bg-neo-green text-black px-3 py-1 border border-black"
-                      >APIs</span
-                    >
-                  </div>
-                </div>
+                  Projects in Motion
+                </h2>
               </div>
-              <a
-                href="https://github.com/xynextrixor"
-                class="w-14 h-14 border-2 border-black bg-neo-green text-black flex items-center justify-center hover:bg-black hover:text-neo-green transition-all cursor-hover shadow-hard-sm font-black text-2xl flex-shrink-0 mt-1"
-                title="View on GitHub"
+              <p
+                class="hidden lg:block max-w-sm text-right font-mono text-xs uppercase tracking-[0.24em] text-black/65 leading-relaxed"
               >
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
+                Scroll vertically to travel horizontally through a cinematic
+                project story.
+              </p>
             </div>
-          </article>
 
-          <article
-            class="reveal group bg-white border-4 border-black p-4 shadow-hard mt-0 md:mt-20 overflow-hidden"
-          >
             <div
-              class="aspect-video relative overflow-hidden group-hover:brightness-125 transition-all duration-300"
+              class="projects-row projects-row--desktop projects-row--top"
+              aria-label="Top project row"
             >
-              <img
-                src="engine.png"
-                alt="C++ Game Engine"
-                class="w-full h-full object-cover"
-              />
+              <div id="projects-row-top" class="projects-row__track"></div>
             </div>
-            <div class="flex justify-between items-start gap-4">
-              <div class="flex-1">
-                <h3
-                  class="text-4xl font-black uppercase mb-3 group-hover:text-neo-orange transition-colors glitch-hover"
-                >
-                  C++ Game Engine
-                </h3>
-                <p class="font-mono text-sm mb-4 text-gray-700 leading-relaxed">
-                  A high-performance game engine built in C++ with advanced
-                  graphics, physics simulation, and optimized rendering
-                  pipeline.
-                </p>
-                <div class="space-y-2 mb-4">
-                  <p
-                    class="font-mono text-xs text-neo-black font-bold uppercase"
-                  >
-                    Technology Stack:
-                  </p>
-                  <div class="flex gap-2 font-mono text-xs font-bold flex-wrap">
-                    <span
-                      class="bg-neo-blue text-white px-3 py-1 border border-black"
-                      >C++</span
-                    >
-                    <span
-                      class="bg-neo-orange text-black px-3 py-1 border border-black"
-                      >OpenGL</span
-                    >
-                    <span
-                      class="bg-neo-purple text-white px-3 py-1 border border-black"
-                      >Physics Engine</span
-                    >
-                    <span
-                      class="bg-neo-green text-black px-3 py-1 border border-black"
-                      >Graphics</span
-                    >
-                  </div>
-                </div>
-              </div>
-              <a
-                href="https://github.com/xynextrixor/Game-engine"
-                class="w-14 h-14 border-2 border-black bg-neo-green text-black flex items-center justify-center hover:bg-black hover:text-neo-green transition-all cursor-hover shadow-hard-sm font-black text-2xl flex-shrink-0 mt-1"
-                title="View on GitHub"
-              >
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
-            </div>
-          </article>
 
-          <article
-            class="reveal group bg-white border-4 border-black p-4 shadow-hard overflow-hidden"
-          >
             <div
-              class="aspect-video relative overflow-hidden group-hover:brightness-125 transition-all duration-300"
+              class="projects-row projects-row--desktop projects-row--bottom"
+              aria-label="Bottom project row"
             >
-              <img
-                src="data.png"
-                alt="Data Processing App"
-                class="w-full h-full object-cover"
-              />
+              <div id="projects-row-bottom" class="projects-row__track"></div>
             </div>
-            <div class="flex justify-between items-start gap-4">
-              <div class="flex-1">
-                <h3
-                  class="text-4xl font-black uppercase mb-3 group-hover:text-neo-purple transition-colors glitch-hover"
-                >
-                  Data Processing App
-                </h3>
-                <p class="font-mono text-sm mb-4 text-gray-700 leading-relaxed">
-                  A comprehensive data processing tool that handles large
-                  datasets, performs analytics, and generates insightful reports
-                  with advanced visualization capabilities.
-                </p>
-                <div class="space-y-2 mb-4">
-                  <p
-                    class="font-mono text-xs text-neo-black font-bold uppercase"
-                  >
-                    Technology Stack:
-                  </p>
-                  <div class="flex gap-2 font-mono text-xs font-bold flex-wrap">
-                    <span
-                      class="bg-neo-blue text-white px-3 py-1 border border-black"
-                      >Python</span
-                    >
-                    <span
-                      class="bg-neo-orange text-black px-3 py-1 border border-black"
-                      >Pandas</span
-                    >
-                    <span
-                      class="bg-neo-purple text-white px-3 py-1 border border-black"
-                      >NumPy</span
-                    >
-                    <span
-                      class="bg-neo-green text-black px-3 py-1 border border-black"
-                      >Analytics</span
-                    >
-                  </div>
-                </div>
-                <div class="space-y-1">
-                  <p class="font-mono text-[11px] text-gray-600">
-                    <i class="ri-checkbox-circle-fill text-neo-green"></i>
-                    Process large datasets efficiently
-                  </p>
-                  <p class="font-mono text-[11px] text-gray-600">
-                    <i class="ri-checkbox-circle-fill text-neo-green"></i>
-                    Generate real-time analytics and insights
-                  </p>
-                  <p class="font-mono text-[11px] text-gray-600">
-                    <i class="ri-checkbox-circle-fill text-neo-green"></i>
-                    Export reports in multiple formats
-                  </p>
-                </div>
-              </div>
-              <a
-                href="https://github.com/xynextrixor"
-                class="w-14 h-14 border-2 border-black bg-neo-green text-black flex items-center justify-center hover:bg-black hover:text-neo-green transition-all cursor-hover shadow-hard-sm font-black text-2xl flex-shrink-0 mt-1"
-                title="View on GitHub"
-              >
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
-            </div>
-          </article>
 
-          <article
-            class="reveal group bg-white border-4 border-black p-4 shadow-hard mt-0 md:mt-20 overflow-hidden"
-          >
             <div
-              class="aspect-video relative overflow-hidden group-hover:brightness-125 transition-all duration-300"
+              class="projects-row projects-row--mobile"
+              aria-label="Mobile project row"
             >
-              <img
-                src="cricket.png"
-                alt="Cricket Match Analyzer"
-                class="w-full h-full object-cover"
-              />
+              <div id="projects-row-mobile" class="projects-row__track"></div>
             </div>
-            <div class="flex justify-between items-start gap-4">
-              <div class="flex-1">
-                <h3
-                  class="text-4xl font-black uppercase mb-3 group-hover:text-neo-red transition-colors glitch-hover"
-                >
-                  Cricket Match Analyzer
-                </h3>
-                <p class="font-mono text-sm mb-4 text-gray-700 leading-relaxed">
-                  An intelligent cricket analysis tool that provides real-time
-                  match statistics, player performance metrics, and predictive
-                  analytics using machine learning algorithms.
-                </p>
-                <div class="space-y-2 mb-4">
-                  <p
-                    class="font-mono text-xs text-neo-black font-bold uppercase"
-                  >
-                    Technology Stack:
-                  </p>
-                  <div class="flex gap-2 font-mono text-xs font-bold flex-wrap">
-                    <span
-                      class="bg-neo-blue text-white px-3 py-1 border border-black"
-                      >Python</span
-                    >
-                    <span
-                      class="bg-neo-orange text-black px-3 py-1 border border-black"
-                      >Machine Learning</span
-                    >
-                    <span
-                      class="bg-neo-purple text-white px-3 py-1 border border-black"
-                      >Data Analytics</span
-                    >
-                    <span
-                      class="bg-neo-green text-black px-3 py-1 border border-black"
-                      >TensorFlow</span
-                    >
-                  </div>
-                </div>
-                <div class="space-y-1">
-                  <p class="font-mono text-[11px] text-gray-600">
-                    <i class="ri-checkbox-circle-fill text-neo-green"></i>
-                    Real-time match statistics and live score tracking
-                  </p>
-                  <p class="font-mono text-[11px] text-gray-600">
-                    <i class="ri-checkbox-circle-fill text-neo-green"></i>
-                    Player performance analysis and predictive metrics
-                  </p>
-                  <p class="font-mono text-[11px] text-gray-600">
-                    <i class="ri-checkbox-circle-fill text-neo-green"></i>
-                    Match outcome prediction using AI models
-                  </p>
-                </div>
-              </div>
-              <a
-                href="https://github.com/xynextrixor/cricket-match-analyzer"
-                class="w-14 h-14 border-2 border-black bg-neo-green text-black flex items-center justify-center hover:bg-black hover:text-neo-green transition-all cursor-hover shadow-hard-sm font-black text-2xl flex-shrink-0 mt-1"
-                title="View on GitHub"
-              >
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
-            </div>
-          </article>
-        </div>
-
-        <div class="text-center mt-24">
-          <a
-            href="https://github.com/xynextrixor?tab=repositories"
-            class="inline-block bg-neo-black text-white px-12 py-5 font-bold font-mono text-xl hover:bg-neo-white hover:text-black border-4 border-black transition-all shadow-hard hover:shadow-none cursor-hover"
-          >
-            VIEW ALL REPOS ON GITHUB
-          </a>
+          </div>
         </div>
       </div>
     </section>
@@ -2288,6 +2290,322 @@
             card.classList.add("auto-flip");
             setTimeout(() => card.classList.remove("auto-flip"), 900);
           }, idx * 120);
+        });
+      }
+
+      // Projects storytelling section
+      const projectStories = [
+        {
+          title: "YuktiCanvas Platform",
+          image: "pdf-tool.png",
+          alt: "YuktiCanvas Platform",
+          description:
+            "Collaborative visual workspace for creating diagrams, flowcharts, mind maps, wireframes, system designs and brainstorming boards with real-time collaboration and infinite canvas support.",
+          tags: ["Next.js", "PyPDF2", "TypeScript", "Supabase", "MERN"],
+          link: "https://github.com/xynextrixor/Yukticanvas",
+        },
+        {
+          title: "SanskarVault Platform",
+          image: "jarvis.png",
+          alt: "SanskarVault Platform",
+          description:
+            "An intelligent educational platform designed for students to access previous year papers, AI-generated notes, curated study materials, and personalized learning resources through a modern and user-friendly interface.",
+          tags: ["MERN", "Supabase", "Buckets", "Figma"],
+          link: "https://github.com/xynextrixor/sanskarvault",
+        },
+        {
+          title: "WhatsApp Automation",
+          image: "automation.png",
+          alt: "WhatsApp Automation",
+          description:
+            "An intelligent WhatsApp bot that automates messaging, handles multiple chats, and integrates with APIs for smart responses.",
+          tags: ["Python", "Selenium", "Bot Framework", "APIs"],
+          link: "https://github.com/xynextrixor",
+        },
+        {
+          title: "C++ Game Engine",
+          image: "engine.png",
+          alt: "C++ Game Engine",
+          description:
+            "A high-performance game engine built in C++ with advanced graphics, physics simulation, and optimized rendering pipeline.",
+          tags: ["C++", "OpenGL", "Physics Engine", "Graphics"],
+          link: "https://github.com/xynextrixor/Game-engine",
+        },
+        {
+          title: "Data Processing App",
+          image: "data.png",
+          alt: "Data Processing App",
+          description:
+            "A comprehensive data processing tool that handles large datasets, performs analytics, and generates insightful reports with advanced visualization capabilities.",
+          tags: ["Python", "Pandas", "NumPy", "Analytics"],
+          link: "https://github.com/xynextrixor",
+        },
+        {
+          title: "Cricket Match Analyzer",
+          image: "cricket.png",
+          alt: "Cricket Match Analyzer",
+          description:
+            "An intelligent cricket analysis tool that provides real-time match statistics, player performance metrics, and predictive analytics using machine learning algorithms.",
+          tags: ["Python", "Machine Learning", "Data Analytics", "TensorFlow"],
+          link: "https://github.com/xynextrixor/cricket-match-analyzer",
+        },
+      ];
+
+      const projectsSection = document.getElementById("projects");
+      const projectsProgressBar = document.getElementById(
+        "projects-progress-bar",
+      );
+      const projectsRows = {
+        top: document.getElementById("projects-row-top"),
+        bottom: document.getElementById("projects-row-bottom"),
+        mobile: document.getElementById("projects-row-mobile"),
+      };
+      const projectsReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+      const projectsMobileQuery = window.matchMedia("(max-width: 767px)");
+
+      let projectsRaf = 0;
+      let projectsStart = 0;
+      let projectsDistance = 1;
+      let projectsTopTravel = 1;
+      let projectsBottomTravel = 1;
+      let projectsMobileTravel = 1;
+      let projectsActive = false;
+
+      function clamp01(value) {
+        return Math.min(1, Math.max(0, value));
+      }
+
+      function smoothstep(value) {
+        return value * value * (3 - 2 * value);
+      }
+
+      function buildProjectCard(project, index) {
+        const rotation = index % 2 === 0 ? "-2deg" : "2deg";
+        const indexLabel = String(index + 1).padStart(2, "0");
+        const tags = project.tags
+          .map((tag) => `<span class="project-card__tag">${tag}</span>`)
+          .join("");
+
+        return `
+          <article class="project-card" style="--card-rotation:${rotation}; --card-opacity:1; --card-scale:1; --card-y:0px; --media-parallax:0px;">
+            <div class="project-card__surface">
+              <div class="project-card__media">
+                <img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" />
+                <span class="project-card__media-badge">${indexLabel}</span>
+              </div>
+              <div class="project-card__body">
+                <div class="project-card__eyebrow">Featured Build</div>
+                <h3 class="project-card__title">${project.title}</h3>
+                <p class="project-card__description">${project.description}</p>
+                <div class="project-card__tags">${tags}</div>
+                <div class="project-card__footer">
+                  <a href="${project.link}" target="_blank" rel="noreferrer" class="project-card__button" aria-label="Visit ${project.title} on GitHub">
+                    VISIT <i class="ri-arrow-right-up-line"></i>
+                  </a>
+                  <span class="project-card__index">${indexLabel}</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      function renderProjectRows() {
+        if (!projectsRows.top || !projectsRows.bottom || !projectsRows.mobile)
+          return;
+
+        projectsRows.top.innerHTML = projectStories
+          .slice(0, 3)
+          .map((project, index) => buildProjectCard(project, index))
+          .join("");
+
+        projectsRows.bottom.innerHTML = projectStories
+          .slice(3)
+          .map((project, index) => buildProjectCard(project, index + 3))
+          .join("");
+
+        projectsRows.mobile.innerHTML = projectStories
+          .map((project, index) => buildProjectCard(project, index))
+          .join("");
+      }
+
+      function updateProjectMeasurements() {
+        if (!projectsSection) return;
+
+        const sectionRect = projectsSection.getBoundingClientRect();
+        projectsStart = window.scrollY + sectionRect.top;
+        projectsDistance = Math.max(
+          projectsSection.offsetHeight - window.innerHeight,
+          1,
+        );
+
+        const activeTopTrack = projectsMobileQuery.matches
+          ? projectsRows.mobile
+          : projectsRows.top;
+        const activeBottomTrack = projectsMobileQuery.matches
+          ? projectsRows.mobile
+          : projectsRows.bottom;
+
+        if (activeTopTrack) {
+          const cards = activeTopTrack.querySelectorAll(".project-card");
+          cards.forEach((card) => {
+            card._baseCenter = card.offsetLeft + card.offsetWidth / 2;
+          });
+        }
+
+        if (activeBottomTrack && activeBottomTrack !== activeTopTrack) {
+          const cards = activeBottomTrack.querySelectorAll(".project-card");
+          cards.forEach((card) => {
+            card._baseCenter = card.offsetLeft + card.offsetWidth / 2;
+          });
+        }
+
+        projectsTopTravel = projectsRows.top
+          ? projectsRows.top.scrollWidth + window.innerWidth
+          : 1;
+        projectsBottomTravel = projectsRows.bottom
+          ? projectsRows.bottom.scrollWidth + window.innerWidth
+          : 1;
+        projectsMobileTravel = projectsRows.mobile
+          ? projectsRows.mobile.scrollWidth + window.innerWidth
+          : 1;
+      }
+
+      function updateProjectCardStates(trackEl, rowX) {
+        if (!trackEl) return;
+
+        const viewportCenter = window.innerWidth / 2;
+        const cards = trackEl.querySelectorAll(".project-card");
+        cards.forEach((card) => {
+          const baseCenter = card._baseCenter || 0;
+          const center = baseCenter + rowX;
+          const distance = Math.abs(center - viewportCenter);
+          const visibility = clamp01(1 - distance / (window.innerWidth * 0.58));
+          const opacity = 0.7 + visibility * 0.3;
+          const scale = 0.9 + visibility * 0.14;
+          const lift = (1 - visibility) * 18;
+          const parallax = (1 - visibility) * 12;
+
+          card.style.setProperty("--card-opacity", opacity.toFixed(3));
+          card.style.setProperty("--card-scale", scale.toFixed(3));
+          card.style.setProperty("--card-y", `${lift.toFixed(1)}px`);
+          card.style.setProperty(
+            "--media-parallax",
+            `${parallax.toFixed(1)}px`,
+          );
+        });
+      }
+
+      function renderProjectsFrame() {
+        projectsRaf = 0;
+        if (!projectsSection || !projectsProgressBar) return;
+
+        if (projectsReducedMotion.matches) {
+          projectsProgressBar.style.transform = "scaleX(1)";
+          [projectsRows.top, projectsRows.bottom, projectsRows.mobile].forEach(
+            (row) => {
+              if (row) row.style.transform = "none";
+            },
+          );
+          return;
+        }
+
+        const progress = clamp01(
+          (window.scrollY - projectsStart) / projectsDistance,
+        );
+        const eased = smoothstep(progress);
+        projectsProgressBar.style.transform = `scaleX(${progress})`;
+
+        if (projectsMobileQuery.matches) {
+          const mobileX =
+            -projectsMobileTravel + projectsMobileTravel * 2 * eased;
+          if (projectsRows.mobile) {
+            projectsRows.mobile.style.transform = `translate3d(${mobileX}px, -50%, 0)`;
+            updateProjectCardStates(projectsRows.mobile, mobileX);
+          }
+
+          if (projectsRows.top)
+            projectsRows.top.style.transform = "translate3d(0, 0, 0)";
+          if (projectsRows.bottom)
+            projectsRows.bottom.style.transform = "translate3d(0, 0, 0)";
+          return;
+        }
+
+        const topX = -projectsTopTravel + projectsTopTravel * 2 * eased;
+        const bottomX = projectsBottomTravel - projectsBottomTravel * 2 * eased;
+
+        if (projectsRows.top) {
+          projectsRows.top.style.transform = `translate3d(${topX}px, 0, 0)`;
+          updateProjectCardStates(projectsRows.top, topX);
+        }
+
+        if (projectsRows.bottom) {
+          projectsRows.bottom.style.transform = `translate3d(${bottomX}px, 0, 0)`;
+          updateProjectCardStates(projectsRows.bottom, bottomX);
+        }
+
+        if (projectsRows.mobile)
+          projectsRows.mobile.style.transform = "translate3d(0, 0, 0)";
+      }
+
+      function requestProjectsFrame() {
+        if (projectsRaf) return;
+        projectsRaf = requestAnimationFrame(renderProjectsFrame);
+      }
+
+      renderProjectRows();
+      updateProjectMeasurements();
+
+      const projectsResizeObserver = new ResizeObserver(() => {
+        updateProjectMeasurements();
+        requestProjectsFrame();
+      });
+      if (projectsSection) projectsResizeObserver.observe(projectsSection);
+
+      if (projectsRows.top) projectsResizeObserver.observe(projectsRows.top);
+      if (projectsRows.bottom)
+        projectsResizeObserver.observe(projectsRows.bottom);
+      if (projectsRows.mobile)
+        projectsResizeObserver.observe(projectsRows.mobile);
+
+      const projectsIntersectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            projectsActive = entry.isIntersecting;
+            if (projectsActive) requestProjectsFrame();
+          });
+        },
+        { threshold: 0.05 },
+      );
+      if (projectsSection)
+        projectsIntersectionObserver.observe(projectsSection);
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (projectsActive) requestProjectsFrame();
+        },
+        { passive: true },
+      );
+
+      window.addEventListener("resize", () => {
+        updateProjectMeasurements();
+        requestProjectsFrame();
+      });
+
+      if (projectsMobileQuery.addEventListener) {
+        projectsMobileQuery.addEventListener("change", () => {
+          updateProjectMeasurements();
+          requestProjectsFrame();
+        });
+      }
+
+      if (projectsReducedMotion.addEventListener) {
+        projectsReducedMotion.addEventListener("change", () => {
+          updateProjectMeasurements();
+          requestProjectsFrame();
         });
       }
 
