@@ -6,11 +6,11 @@
 
     <meta
       name="description"
-      content="Anmol Singh | B.Tech Data Science student building modern web apps, AI tools, and polished digital experiences."
+      content="Anmol Singh | B.Tech Data Science student building modern web apps, AI tools, full stack blockchain solutions, and polished digital experiences."
     />
     <meta
       name="keywords"
-      content="Anmol Singh, Data Science, AI Engineer, Portfolio, Web Development, Python, C++, React"
+      content="Anmol Singh, Data Science, AI Engineer, Full Stack Blockchain Developer, Portfolio, Web Development, Python, C++, React, Blockchain, Smart Contract"
     />
     <meta name="author" content="Anmol Singh" />
     <link rel="canonical" href="https://anmolprofile.vercel.app/" />
@@ -20,7 +20,7 @@
     <meta property="og:title" content="Anmol Singh | Portfolio" />
     <meta
       property="og:description"
-      content="B.Tech Data Science student building modern web apps and AI tools."
+      content="B.Tech Data Science student building modern web apps, AI tools, and full stack blockchain solutions."
     />
     <meta
       property="og:image"
@@ -31,7 +31,7 @@
     <meta property="twitter:title" content="Anmol Singh | Portfolio" />
     <meta
       property="twitter:description"
-      content="B.Tech Data Science student building modern web apps and AI tools."
+      content="B.Tech Data Science student building modern web apps, AI tools, and full stack blockchain solutions."
     />
     <meta
       property="twitter:image"
@@ -2178,11 +2178,13 @@
         const skills = [
           { cat: "LANGUAGE", name: "C++" },
           { cat: "LANGUAGE", name: "Python" },
+          { cat: "LANGUAGE", name: "Rust" },
           { cat: "CORE", name: "Data Sci" },
           { cat: "CORE", name: "DSA" },
           { cat: "LANGUAGE", name: "JavaScript" },
           { cat: "WEB", name: "HTML/CSS" },
           { cat: "FRONTEND", name: "React" },
+          { cat: "LIB", name: "Tailwind" },
           { cat: "BACKEND", name: "Node.js" },
           { cat: "BACKEND", name: "Express.js" },
           { cat: "DATABASE", name: "MySQL" },
@@ -2190,6 +2192,8 @@
           { cat: "OS", name: "Linux" },
           { cat: "TOOL", name: "Git" },
           { cat: "TOOL", name: "GitHub" },
+          { cat: "WEB3", name: "Blockchain" },
+          { cat: "WEB3", name: "Smart Contract" },
           { cat: "SKILL", name: "JSON" },
           { cat: "SKILL", name: "Script" },
           { cat: "SKILL", name: "Auto" },
@@ -2202,8 +2206,6 @@
           { cat: "DESIGN", name: "UI/UX" },
           { cat: "MEDIA", name: "Video" },
           { cat: "LANGUAGE", name: "TypeScript" },
-          { cat: "FRONTEND", name: "Next.js" },
-          { cat: "LIB", name: "Tailwind" },
         ];
         const container = document.getElementById("skills-container");
         if (!container) return;
@@ -2262,7 +2264,10 @@
         if (key === "ui/ux") return { back: "#EC4899", text: "#ffffff" }; // hot pink
         if (key === "video") return { back: "#DC2626", text: "#ffffff" }; // video red
         if (key === "typescript") return { back: "#3178C6", text: "#ffffff" }; // TS blue
-        if (key === "next.js") return { back: "#000000", text: "#ffffff" }; // Next black
+        if (key === "rust") return { back: "#DEA584", text: "#000000" }; // Rust orange
+        if (key === "blockchain") return { back: "#6D28D9", text: "#ffffff" }; // web3 purple
+        if (key === "smart contract")
+          return { back: "#111827", text: "#F9FAFB" }; // contract slate
         if (key === "tailwind") return { back: "#06B6D4", text: "#ffffff" }; // Tailwind cyan
         if (key === "hld") return { back: "#6366F1", text: "#ffffff" }; // indigo
         if (key === "lld") return { back: "#0EA5E9", text: "#ffffff" }; // sky blue
