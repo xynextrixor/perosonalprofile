@@ -31,6 +31,12 @@ Welcome to my personal portfolio website — a place where I showcase my skills,
 
 
 
+
+
+
+
+
+
 ## 📌 About Me
 
 I am currently pursuing B.Tech in Data Science and actively working on strengthening my foundations in Data Structures and Algorithms. Alongside this, I am exploring web development to create visually appealing and responsive applications.
