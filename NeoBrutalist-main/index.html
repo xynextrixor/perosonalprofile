@@ -47,6 +47,14 @@
       as="style"
     />
 
+    <script type="importmap">
+      {
+        "imports": {
+          "animejs": "https://esm.sh/animejs"
+        }
+      }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link
@@ -476,10 +484,11 @@
       /* About Me highlight points */
       .about-point {
         display: block;
-        padding: 4px 8px;
-        margin: 4px 0;
+        padding: 2px 6px;
+        margin: 2px 0;
         border-radius: 2px;
         position: relative;
+        line-height: 1.35;
         transition:
           color 0.3s ease,
           font-weight 0.3s ease,
@@ -555,8 +564,26 @@
       .photo-shine {
         position: relative;
         overflow: hidden;
-        animation: floatGentle 5s ease-in-out infinite;
+      }
+
+      @keyframes floatCollage {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(-2deg);
+        }
+        50% {
+          transform: translateY(-6px) rotate(-0.5deg);
+        }
+      }
+      .collage-float {
+        animation: floatCollage 6s ease-in-out infinite;
         will-change: transform;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .collage-float {
+          animation: none !important;
+          transform: rotate(-2deg) !important;
+        }
       }
 
       .photo-shine::after {
@@ -656,11 +683,6 @@
             >/PROJECTS</a
           >
           <a
-            href="#gifs"
-            class="px-3 py-1 font-mono font-bold text-sm hover:bg-black hover:text-white transition-colors cursor-hover"
-            >/GIFS</a
-          >
-          <a
             href="#contact"
             class="px-3 py-1 font-mono font-bold text-sm bg-neo-yellow border border-black hover:bg-neo-pink transition-colors cursor-hover"
             >CONTACT</a
@@ -675,9 +697,59 @@
       <div
         class="absolute top-1/3 left-[10%] w-16 h-16 bg-neo-blue border-4 border-black shadow-hard animate-bounce hidden lg:block rotate-12"
       ></div>
+
+      <!-- Floating Video with Orange Borderline (Left Down Corner) -->
       <div
-        class="absolute bottom-1/3 right-[10%] w-24 h-24 bg-neo-pink rounded-full border-4 border-black shadow-hard hidden lg:block animate-pulse"
-      ></div>
+        class="absolute bottom-6 left-4 sm:bottom-10 sm:left-8 md:bottom-12 md:left-12 z-20 hidden md:block"
+      >
+        <div
+          class="w-32 h-32 sm:w-36 sm:h-36 md:w-44 md:h-44 overflow-hidden border-4 border-neo-orange shadow-hard bg-black hover:scale-105 transition-transform duration-200"
+        >
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            class="w-full h-full object-cover block"
+          >
+            <source
+              src="From Klickpin.com- Beautiful romantic date night ideas that are trending right now and still timeless enough to save for later for anyone who want.mp4"
+              type="video/mp4"
+            />
+            <source src="hero-video.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <!-- Anime.js Morphing Polygon (Replaces Pink Circle) -->
+      <div
+        class="absolute bottom-1/3 right-[8%] lg:right-[10%] z-20 hidden md:block"
+      >
+        <div
+          class="relative group cursor-pointer transition-transform hover:scale-110 active:scale-95 duration-200"
+          title="Click to cycle color!"
+        >
+          <svg
+            viewBox="88 -8 128 128"
+            class="w-24 h-24 lg:w-32 lg:h-32 overflow-visible drop-shadow-[5px_5px_0px_#000]"
+          >
+            <polygon
+              id="path-1"
+              points="152,0 166,42 208,56 166,70 152,112 138,70 96,56 138,42"
+              fill="#FA6C98"
+              stroke="#000000"
+              stroke-width="3.5"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+            ></polygon>
+            <polygon
+              id="path-2"
+              style="display: none"
+              points="152,0 208,56 152,112 96,56"
+            ></polygon>
+          </svg>
+        </div>
+      </div>
       <div
         class="absolute top-20 right-20 text-9xl opacity-5 font-black select-none pointer-events-none"
       >
@@ -685,17 +757,130 @@
       </div>
 
       <div class="relative z-10 text-center max-w-5xl">
-        <div
-          class="inline-block bg-neo-white border-2 border-black px-4 py-1 mb-6 shadow-hard rotate-[-2deg] reveal hero-badge"
-        >
-          <span class="font-mono font-bold text-neo-green bg-black px-2 mr-2"
-            >●</span
-          >
-          <span class="font-mono font-bold">STATUS: AVAILABLE</span>
+        <!-- Anime.js v4 Motion Path & Line Drawing Experiment -->
+        <div class="w-full max-w-xl mx-auto mb-6 reveal">
+          <div class="relative w-full overflow-visible p-1">
+            <svg
+              viewBox="0 0 700 110"
+              class="w-full h-auto block overflow-visible select-none pointer-events-none"
+            >
+              <!-- Motion Path animated via createDrawable & followed by .car -->
+              <path
+                id="hero-motion-path"
+                d="M 25 55 C 140 10, 220 100, 350 55 C 480 10, 560 100, 675 55"
+                fill="none"
+                stroke="#121212"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <!-- Start & End Markers -->
+              <circle
+                cx="25"
+                cy="55"
+                r="5"
+                fill="#33FF57"
+                stroke="#121212"
+                stroke-width="2"
+              />
+              <circle
+                cx="675"
+                cy="55"
+                r="5"
+                fill="#FF2A2A"
+                stroke="#121212"
+                stroke-width="2"
+              />
+
+              <!-- .car group following the motion path -->
+              <g class="car">
+                <!-- Drop shadow -->
+                <rect
+                  x="-18"
+                  y="-9"
+                  width="36"
+                  height="18"
+                  rx="3"
+                  fill="#000"
+                  opacity="0.25"
+                  transform="translate(2, 2)"
+                />
+                <!-- Car chassis -->
+                <rect
+                  x="-18"
+                  y="-9"
+                  width="36"
+                  height="18"
+                  rx="3"
+                  fill="#FBFF48"
+                  stroke="#121212"
+                  stroke-width="2.5"
+                />
+                <!-- Windshield / cockpit -->
+                <rect
+                  x="-6"
+                  y="-6.5"
+                  width="16"
+                  height="13"
+                  rx="2"
+                  fill="#3B82F6"
+                  stroke="#121212"
+                  stroke-width="1.5"
+                />
+                <!-- Headlights -->
+                <circle
+                  cx="16"
+                  cy="-5"
+                  r="2"
+                  fill="#33FF57"
+                  stroke="#121212"
+                  stroke-width="1"
+                />
+                <circle
+                  cx="16"
+                  cy="5"
+                  r="2"
+                  fill="#33FF57"
+                  stroke="#121212"
+                  stroke-width="1"
+                />
+                <!-- Taillights -->
+                <rect x="-18" y="-7" width="2.5" height="3" fill="#FF2A2A" />
+                <rect x="-18" y="4" width="2.5" height="3" fill="#FF2A2A" />
+                <!-- 4 Wheels -->
+                <rect
+                  x="-14"
+                  y="-12"
+                  width="7"
+                  height="3"
+                  rx="1"
+                  fill="#121212"
+                />
+                <rect
+                  x="7"
+                  y="-12"
+                  width="7"
+                  height="3"
+                  rx="1"
+                  fill="#121212"
+                />
+                <rect
+                  x="-14"
+                  y="9"
+                  width="7"
+                  height="3"
+                  rx="1"
+                  fill="#121212"
+                />
+                <rect x="7" y="9" width="7" height="3" rx="1" fill="#121212" />
+              </g>
+            </svg>
+          </div>
         </div>
 
         <h1
-          class="text-[12vw] md:text-[8vw] leading-[0.8] font-black uppercase tracking-tighter mb-6 reveal mix-blend-darken hero-title"
+          class="text-[20vw] md:text-[10vw] leading-[0.8] font-black uppercase tracking-tighter mb-6 reveal mix-blend-darken hero-title"
         >
           DATA SCIENCE<br />
           <span
@@ -706,11 +891,10 @@
         </h1>
 
         <p
-          class="font-mono text-lg md:text-2xl max-w-2xl mx-auto mb-10 bg-neo-yellow border-2 border-black p-4 shadow-hard reveal rotate-1 hero-subtitle"
+          class="font-mono text-lg md:text-1xl max-w-2xl mx-auto mb-10 bg-neo-yellow border-2 border-black p-4 shadow-hard reveal rotate-1 hero-subtitle"
         >
-          B.Tech Data Science Student | Future AI Engineer | Full Stack
-          Blockchain Developer <br />
-          <b>Python • C++ • SMART CONTRACT • AI</b>
+          B.Tech Data Science | Full Stack Blockchain Developer <br />
+          <b>AGENTS • GENAI • SMART CONTRACT • AI</b>
         </p>
 
         <div
@@ -744,67 +928,259 @@
 
     <section
       id="about"
-      class="py-24 px-4 max-w-7xl mx-auto border-x-4 border-black bg-white my-12 shadow-hard-lg"
+      class="max-w-7xl mx-auto border-4 border-black bg-neo-white my-12 shadow-hard-xl relative overflow-hidden"
     >
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
-        <div class="md:col-span-4 reveal">
-          <div
-            class="aspect-square bg-gray-200 border-4 border-black relative shadow-hard overflow-hidden group photo-shine"
-            id="photo-box"
+      <!-- Editorial Header Strip -->
+      <div
+        class="flex flex-wrap items-center justify-between border-b-4 border-black px-4 md:px-6 py-2.5 bg-neo-red/90 font-mono text-xs font-bold uppercase tracking-wider"
+      >
+        <div class="flex items-center gap-2">
+          <span
+            class="w-2.5 h-2.5 rounded-full bg-neo-red border border-black inline-block"
+          ></span>
+          <span
+            class="w-2.5 h-2.5 rounded-full bg-neo-yellow border border-black inline-block"
+          ></span>
+          <span
+            class="w-2.5 h-2.5 rounded-full bg-neo-green border border-black inline-block"
+          ></span>
+          <span class="ml-2 font-black text-black"
+            >SECTION.01 // ABOUT_ANMOL</span
           >
-            <img
-              src="file_0000000085f872079f7d979fad39494d.png"
-              alt="Anmol Singh"
-              class="w-full h-full object-cover transition-all duration-500"
-            />
-            <span
-              class="absolute top-2 left-2 bg-neo-red text-white px-2 font-mono text-xs border border-black z-10"
-              >ANMOL.JPG</span
-            >
-          </div>
         </div>
-        <div class="md:col-span-8 flex flex-col justify-center reveal">
-          <h2 class="text-6xl font-black uppercase mb-6">About Me</h2>
-          <p class="font-mono text-xl leading-relaxed mb-6">
-            I am
-            <span class="bg-neo-yellow px-1 border border-black font-bold"
-              >Anmol Singh</span
-            >, a B.Tech Data Science student passionate about building
-            intelligent systems and modern web applications. I focus on
-            combining software development with artificial intelligence to
-            create useful real-world solutions.
-          </p>
-          <div
-            id="about-points"
-            class="font-mono text-lg mb-8 text-gray-600 border-l-4 border-neo-purple pl-4"
+        <div
+          class="hidden sm:flex items-center gap-4 text-gray-800 font-mono text-[11px]"
+        >
+          <span>SYS.STATUS: ONLINE</span>
+          <span class="bg-black text-white px-2 py-0.5 border border-black"
+            >DEV_MODE</span
           >
-            <span class="about-point"
-              >> Specialized in Data Science, Web Development, and AI.</span
-            >
-            <span class="about-point"
-              >> Strong focus on DSA and System Design.</span
-            >
-            <span class="about-point"
-              >> Exploring Blockchain Development and Smart Contracts.</span
-            >
-            <span class="about-point"
-              >> Linux user and automation enthusiast.</span
-            >
-            <span class="about-point"
-              >> Pro Graphic Designer And Video Editor.</span
-            >
+        </div>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div
+        class="p-6 md:p-10 lg:p-14 min-h-[580px] lg:min-h-[750px] flex flex-col justify-between relative"
+      >
+        <!-- Top Right Corner - Plain Video (Joined Corner to Corner) -->
+        <div
+          class="hidden lg:block lg:absolute lg:top-0 lg:right-0 z-20 w-[170px] xl:w-[190px] aspect-square overflow-hidden pointer-events-none"
+          id="about-top-right-video"
+        >
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            class="w-full h-full object-cover"
+            style="mix-blend-mode: multiply"
+          >
+            <source
+              src="From Klickpin.com- Aesthetic curly hair care ideas that bring together style function and viral-worthy inspiration for ideas worth saving right no.mp4"
+              type="video/mp4"
+            />
+            <source src="curly-hair.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <!-- Bottom Left Corner - Plain Video (Joined Corner to Corner) -->
+        <div
+          class="hidden lg:block lg:absolute lg:bottom-0 lg:left-0 z-20 w-[170px] xl:w-[190px] aspect-square overflow-hidden pointer-events-none"
+          id="about-bottom-left-video"
+        >
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            class="w-full h-full object-cover"
+            style="mix-blend-mode: multiply"
+          >
+            <source
+              src="From Klickpin.com- Aesthetic curly hair care ideas that bring together style function and viral-worthy inspiration for ideas worth saving right no.mp4"
+              type="video/mp4"
+            />
+            <source src="curly-hair.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <!-- Bottom Middle - Animated GIF (Matched Height to Left Bottom Corner) -->
+        <div
+          class="hidden lg:block lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 z-20 pointer-events-none"
+          id="about-bottom-middle-anim"
+        >
+          <img
+            src="Untitled - October 20, 2026 at 14.03.52 (1).gif"
+            onerror="
+              this.onerror = null;
+              this.src = 'team-characters.gif';
+            "
+            alt="Creative Animation"
+            class="h-[170px] xl:h-[190px] w-auto object-contain"
+            style="mix-blend-mode: multiply"
+          />
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-10 lg:gap-16 items-start"
+        >
+          <!-- Area 1: Left - Portrait Collage & Status Badges -->
+          <div
+            class="md:col-span-5 lg:col-span-4 flex flex-col justify-start items-start self-start pt-2 sm:pt-4 gap-12 sm:gap-14"
+          >
+            <div class="relative w-full max-w-[340px] group collage-float">
+              <!-- Geometric Layer 1: Bottom Back Blue Accent Panel -->
+              <div
+                class="absolute -bottom-3 -right-3 w-full h-full bg-neo-blue border-4 border-black shadow-hard -rotate-2 group-hover:rotate-0 transition-transform duration-300"
+              ></div>
+
+              <!-- Geometric Layer 2: Yellow Mini Accent Card Behind Top -->
+              <div
+                class="absolute -top-3 -right-2 w-20 h-20 bg-neo-yellow border-3 border-black shadow-hard rotate-12 hidden sm:block"
+              ></div>
+
+              <!-- Layer 3: Top-Left Header Badge -->
+              <div
+                class="absolute -top-3.5 -left-3 bg-neo-yellow border-2 border-black font-mono text-[11px] font-black px-3 py-1 shadow-hard -rotate-6 z-20 group-hover:rotate-0 transition-transform duration-300 flex items-center gap-1.5"
+              >
+                <span
+                  class="w-1.5 h-1.5 rounded-full bg-neo-green animate-ping inline-block"
+                ></span>
+                <span>ANMOL // PORTRAIT</span>
+              </div>
+
+              <!-- Main Portrait Frame -->
+              <div
+                class="aspect-square bg-gray-100 border-4 border-black relative shadow-hard overflow-hidden photo-shine z-10"
+                id="photo-box"
+              >
+                <img
+                  src="file_0000000085f872079f7d979fad39494d.png"
+                  alt="Anmol Singh"
+                  class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                />
+                <span
+                  class="absolute bottom-2 left-2 bg-neo-red text-white px-2 py-0.5 font-mono text-xs border border-black z-10 font-bold"
+                  >ANMOL.JPG</span
+                >
+                <span
+                  class="absolute bottom-2 right-2 bg-black text-neo-green font-mono text-[10px] font-bold px-2 py-0.5 border border-black z-10"
+                  >● VERIFIED</span
+                >
+              </div>
+
+              <!-- Layer 4: Floating Corner Pin Accent -->
+              <div
+                class="absolute -bottom-2 -left-2 w-7 h-7 bg-neo-pink border-2 border-black shadow-[2px_2px_0px_#000] rotate-12 z-20 flex items-center justify-center font-black text-xs select-none"
+              >
+                ★
+              </div>
+            </div>
+
+            <!-- Status & Location Badges Settled at the Bottom of Image (1 Row, 2 Columns) -->
+            <div class="grid grid-cols-2 gap-2 w-full max-w-[340px] z-10">
+              <div
+                class="bg-neo-black text-white px-2 py-2 font-mono text-[10.5px] sm:text-xs font-bold border-2 border-black shadow-[3px_3px_0px_#000] flex items-center justify-center gap-1 text-center"
+              >
+                <span>📍</span>
+                <span class="truncate">WORLD + INDIA</span>
+              </div>
+              <div
+                class="bg-neo-green text-black px-2 py-2 font-mono text-[10.5px] sm:text-xs font-bold border-2 border-black shadow-[3px_3px_0px_#000] flex items-center justify-center gap-1.5 text-center"
+              >
+                <span
+                  class="w-2 h-2 rounded-full bg-black animate-ping inline-block flex-shrink-0"
+                ></span>
+                <span class="truncate">AVAILABLE</span>
+              </div>
+            </div>
           </div>
 
-          <div class="flex gap-4">
-            <div
-              class="bg-neo-black text-white px-4 py-2 font-mono text-sm border-2 border-transparent"
-            >
-              📍 WORLD WIDE + INDIA
+          <!-- Area 2: Center & Right - Editorial Typography & Full-Width Bio -->
+          <div
+            class="md:col-span-7 lg:col-span-8 flex flex-col justify-start w-full"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <span
+                class="bg-neo-black text-white font-mono text-[11px] font-bold px-2.5 py-0.5 tracking-wider border border-black uppercase"
+              >
+                // PROFILE
+              </span>
+              <span class="text-xs font-mono font-bold text-gray-500"
+                >SYS_ID: #0042</span
+              >
             </div>
-            <div
-              class="bg-neo-green text-black px-4 py-2 font-mono text-sm border-2 border-black"
+
+            <h2
+              class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight mb-5 leading-none"
             >
-              🟢 STATUS: AVAILABLE
+              ABOUT
+              <span
+                class="text-white text-stroke-black"
+                style="-webkit-text-stroke: 2px black"
+                >ME</span
+              >
+            </h2>
+
+            <p
+              class="font-mono text-base lg:text-lg leading-relaxed mb-6 text-gray-800 w-full max-w-none lg:pr-36"
+            >
+              I am
+              <span
+                class="bg-neo-yellow px-1.5 py-0.5 border border-black font-bold text-black shadow-[2px_2px_0px_#000]"
+                >Anmol Singh</span
+              >, a B.Tech Data Science student passionate about building
+              intelligent systems and modern web applications. I focus on
+              combining software development with artificial intelligence to
+              create useful real-world solutions.
+            </p>
+
+            <!-- Highlight Points with Scroll Sweep Support -->
+            <div
+              id="about-points"
+              class="font-mono text-sm lg:text-base mb-5 border-l-4 border-neo-purple pl-4 space-y-2 w-full max-w-none"
+            >
+              <span class="about-point"
+                >&gt; Specialized in Data Science, Web Development, and
+                AI.</span
+              >
+              <span class="about-point"
+                >&gt; Strong focus on DSA and System Design.</span
+              >
+              <span class="about-point"
+                >&gt; Exploring Blockchain Development and Smart
+                Contracts.</span
+              >
+              <span class="about-point"
+                >&gt; Linux user and automation enthusiast.</span
+              >
+              <span class="about-point"
+                >&gt; Pro Graphic Designer And Video Editor.</span
+              >
+            </div>
+          </div>
+
+          <!-- Area 3: Right Down Corner - Plain Video (Joined Corner to Corner) -->
+          <div
+            class="md:col-span-12 lg:col-span-3 lg:absolute lg:bottom-0 lg:right-0 z-20 flex justify-center lg:justify-end"
+          >
+            <div
+              class="w-[170px] xl:w-[190px] aspect-square overflow-hidden pointer-events-none"
+              id="about-animation-box"
+            >
+              <video
+                autoplay
+                loop
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+                style="mix-blend-mode: multiply"
+              >
+                <source
+                  src="digitale_Schulideen_ssspin.io_1792479540.mp4"
+                  type="video/mp4"
+                />
+              </video>
             </div>
           </div>
         </div>
@@ -1463,7 +1839,7 @@
                       >BUCKETS</span
                     >
                     <span
-                      class="bg-neo-green text-black px-3 py-1 border border-black"
+                      class="bg-neo-green text-black px-3 border border-black"
                       >FIGMA</span
                     >
                   </div>
@@ -2570,6 +2946,371 @@
           ticking = true;
         }
       });
+
+      // ── Mechanical Mouse Scroll Sound Engine ──
+      class ScrollSoundSystem {
+        constructor() {
+          this.ctx = null;
+          this.enabled = true;
+          this.isScrolling = false;
+          this.stopTimer = null;
+          this.lastTickTime = 0;
+          this.scrollDeltaAccumulator = 0;
+          this.rollingGain = null;
+          this.rollingFilter = null;
+          this.rollingNoise = null;
+          this.rollingOsc = null;
+
+          // Check stored preference
+          const saved = localStorage.getItem("portfolio_scroll_sfx");
+          if (saved === "disabled") {
+            this.enabled = false;
+          }
+        }
+
+        initAudio() {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            this.ctx = new AudioCtx();
+            this.setupContinuousNodes();
+          }
+          if (this.ctx && this.ctx.state === "suspended") {
+            this.ctx.resume();
+          }
+        }
+
+        setupContinuousNodes() {
+          if (!this.ctx) return;
+          try {
+            // Master rolling gain
+            this.rollingGain = this.ctx.createGain();
+            this.rollingGain.gain.setValueAtTime(0, this.ctx.currentTime);
+            this.rollingGain.connect(this.ctx.destination);
+
+            // Filter for tactile texture
+            this.rollingFilter = this.ctx.createBiquadFilter();
+            this.rollingFilter.type = "bandpass";
+            this.rollingFilter.frequency.setValueAtTime(
+              1400,
+              this.ctx.currentTime,
+            );
+            this.rollingFilter.Q.setValueAtTime(2.5, this.ctx.currentTime);
+            this.rollingFilter.connect(this.rollingGain);
+
+            // Continuous noise buffer for scroll friction
+            const bufferSize = this.ctx.sampleRate;
+            const noiseBuffer = this.ctx.createBuffer(
+              1,
+              bufferSize,
+              this.ctx.sampleRate,
+            );
+            const data = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+              data[i] = (Math.random() * 2 - 1) * 0.35;
+            }
+
+            this.rollingNoise = this.ctx.createBufferSource();
+            this.rollingNoise.buffer = noiseBuffer;
+            this.rollingNoise.loop = true;
+            this.rollingNoise.connect(this.rollingFilter);
+            this.rollingNoise.start();
+
+            // Low mechanical body tone
+            this.rollingOsc = this.ctx.createOscillator();
+            this.rollingOsc.type = "triangle";
+            this.rollingOsc.frequency.setValueAtTime(150, this.ctx.currentTime);
+
+            const oscGain = this.ctx.createGain();
+            oscGain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+            this.rollingOsc.connect(oscGain);
+            oscGain.connect(this.rollingGain);
+            this.rollingOsc.start();
+          } catch (e) {
+            console.warn("Audio node setup:", e);
+          }
+        }
+
+        playMechanicalClick(velocityFactor = 1.0) {
+          if (!this.enabled || !this.ctx) return;
+          if (this.ctx.state === "suspended") {
+            this.ctx.resume();
+          }
+
+          const t = this.ctx.currentTime;
+
+          // 1. Snappy mechanical transient
+          const osc = this.ctx.createOscillator();
+          const oscGain = this.ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(400 * velocityFactor, t);
+          osc.frequency.exponentialRampToValueAtTime(90, t + 0.016);
+
+          oscGain.gain.setValueAtTime(0.16, t);
+          oscGain.gain.exponentialRampToValueAtTime(0.001, t + 0.016);
+
+          osc.connect(oscGain);
+          oscGain.connect(this.ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.02);
+
+          // 2. High-frequency micro friction tick
+          const frameCount = Math.floor(this.ctx.sampleRate * 0.012);
+          const noiseBuffer = this.ctx.createBuffer(
+            1,
+            frameCount,
+            this.ctx.sampleRate,
+          );
+          const data = noiseBuffer.getChannelData(0);
+          for (let i = 0; i < frameCount; i++) {
+            data[i] =
+              (Math.random() * 2 - 1) * Math.exp(-i / (frameCount * 0.4));
+          }
+
+          const noise = this.ctx.createBufferSource();
+          noise.buffer = noiseBuffer;
+
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = "bandpass";
+          filter.frequency.setValueAtTime(3200 + Math.random() * 400, t);
+          filter.Q.setValueAtTime(4, t);
+
+          const noiseGain = this.ctx.createGain();
+          noiseGain.gain.setValueAtTime(0.22, t);
+          noiseGain.gain.exponentialRampToValueAtTime(0.001, t + 0.012);
+
+          noise.connect(filter);
+          filter.connect(noiseGain);
+          noiseGain.connect(this.ctx.destination);
+
+          noise.start(t);
+          noise.stop(t + 0.015);
+        }
+
+        onScrollActivity(delta) {
+          if (!this.enabled) return;
+          this.initAudio();
+          if (!this.ctx) return;
+
+          const now = Date.now();
+          const t = this.ctx.currentTime;
+
+          // Fade in continuous rolling sound while scrolling
+          if (!this.isScrolling && this.rollingGain) {
+            this.isScrolling = true;
+            this.rollingGain.gain.cancelScheduledValues(t);
+            this.rollingGain.gain.setTargetAtTime(0.14, t, 0.02);
+            this.updateStatusDot(true);
+          }
+
+          // Trigger discrete mechanical ticks with scroll movement
+          const absDelta = Math.abs(delta || 15);
+          this.scrollDeltaAccumulator += absDelta;
+
+          if (
+            this.scrollDeltaAccumulator >= 18 &&
+            now - this.lastTickTime > 25
+          ) {
+            const pitch = 0.9 + Math.min(1.3, absDelta / 45);
+            this.playMechanicalClick(pitch);
+            this.lastTickTime = now;
+            this.scrollDeltaAccumulator = 0;
+          }
+
+          // Reset stop timer: when scrolling ceases, silence sound immediately
+          if (this.stopTimer) {
+            clearTimeout(this.stopTimer);
+          }
+
+          this.stopTimer = setTimeout(() => {
+            this.stopScrollSound();
+          }, 110);
+        }
+
+        stopScrollSound() {
+          this.isScrolling = false;
+          this.scrollDeltaAccumulator = 0;
+          if (this.rollingGain && this.ctx) {
+            const t = this.ctx.currentTime;
+            this.rollingGain.gain.cancelScheduledValues(t);
+            this.rollingGain.gain.setTargetAtTime(0, t, 0.03);
+          }
+          this.updateStatusDot(false);
+        }
+
+        updateStatusDot(active) {
+          const dot = document.getElementById("soundStatusDot");
+          if (!dot) return;
+          if (!this.enabled) {
+            dot.className = "w-2 h-2 rounded-full bg-gray-400";
+          } else if (active) {
+            dot.className = "w-2 h-2 rounded-full bg-neo-green animate-ping";
+          } else {
+            dot.className = "w-2 h-2 rounded-full bg-neo-green";
+          }
+        }
+
+        toggle() {
+          this.enabled = !this.enabled;
+          localStorage.setItem(
+            "portfolio_scroll_sfx",
+            this.enabled ? "enabled" : "disabled",
+          );
+          if (!this.enabled) {
+            this.stopScrollSound();
+          } else {
+            this.initAudio();
+            this.playMechanicalClick(1.2);
+          }
+          this.updateUI();
+          return this.enabled;
+        }
+
+        updateUI() {
+          const navText = document.getElementById("soundText");
+          const navIcon = document.getElementById("soundIcon");
+          const floatText = document.getElementById("floatingSoundText");
+          const floatIcon = document.getElementById("floatingSoundIcon");
+          const dot = document.getElementById("soundStatusDot");
+
+          if (this.enabled) {
+            if (navText) navText.textContent = "SFX: ON";
+            if (navIcon) navIcon.className = "ri-volume-up-line";
+            if (floatText) floatText.textContent = "SFX: ON";
+            if (floatIcon) floatIcon.className = "ri-volume-up-line text-sm";
+            if (dot) dot.className = "w-2 h-2 rounded-full bg-neo-green";
+          } else {
+            if (navText) navText.textContent = "SFX: OFF";
+            if (navIcon) navIcon.className = "ri-volume-mute-line";
+            if (floatText) floatText.textContent = "SFX: OFF";
+            if (floatIcon)
+              floatIcon.className = "ri-volume-mute-line text-sm text-gray-500";
+            if (dot) dot.className = "w-2 h-2 rounded-full bg-gray-400";
+          }
+        }
+      }
+
+      const scrollSound = new ScrollSoundSystem();
+      scrollSound.updateUI();
+
+      // Listen for scroll & wheel events
+      window.addEventListener(
+        "scroll",
+        () => {
+          scrollSound.onScrollActivity(20);
+        },
+        { passive: true },
+      );
+
+      window.addEventListener(
+        "wheel",
+        (e) => {
+          scrollSound.onScrollActivity(Math.abs(e.deltaY));
+        },
+        { passive: true },
+      );
+
+      window.addEventListener(
+        "touchmove",
+        () => {
+          scrollSound.onScrollActivity(20);
+        },
+        { passive: true },
+      );
+
+      // Initialize audio context on first user interaction
+      const resumeAudio = () => {
+        scrollSound.initAudio();
+        window.removeEventListener("pointerdown", resumeAudio);
+        window.removeEventListener("keydown", resumeAudio);
+      };
+      window.addEventListener("pointerdown", resumeAudio);
+      window.addEventListener("keydown", resumeAudio);
+
+      // Bind toggle buttons
+      const soundBtn = document.getElementById("soundToggleBtn");
+      if (soundBtn) {
+        soundBtn.addEventListener("click", () => scrollSound.toggle());
+      }
+      const floatBtn = document.getElementById("floatingSoundBtn");
+      if (floatBtn) {
+        floatBtn.addEventListener("click", () => scrollSound.toggle());
+      }
+    </script>
+
+    <script type="module">
+      import { animate, svg, utils } from "animejs";
+
+      // Animate the transforms properties of .car the motion path values
+      const carAnimation = animate(".car", {
+        ease: "linear",
+        duration: 5000,
+        loop: true,
+        ...svg.createMotionPath("path"),
+      });
+
+      // Line drawing animation following the motion path values
+      // For demo aesthetic only
+      animate(svg.createDrawable("path"), {
+        draw: "0 1",
+        ease: "linear",
+        duration: 5000,
+        loop: true,
+      });
+
+      // ── Morphing Polygon Animation (Top Right Corner) ──
+      const [$path1, $path2] = utils.$("polygon");
+
+      if ($path1 && $path2) {
+        function generatePoints() {
+          const total = utils.random(4, 64);
+          const r1 = utils.random(4, 56);
+          const r2 = 56;
+          const isOdd = (n) => n % 2;
+          let points = "";
+          for (let i = 0, l = isOdd(total) ? total + 1 : total; i < l; i++) {
+            const r = isOdd(i) ? r1 : r2;
+            const a = (2 * Math.PI * i) / l - Math.PI / 2;
+            const x = 152 + utils.round(r * Math.cos(a), 0);
+            const y = 56 + utils.round(r * Math.sin(a), 0);
+            points += `${x},${y} `;
+          }
+          return points;
+        }
+
+        function animateRandomPoints() {
+          // Update the points attribute on #path-2
+          utils.set($path2, { points: generatePoints() });
+          // Morph the points of #path-1 into #path-2
+          animate($path1, {
+            points: svg.morphTo($path2),
+            ease: "inOutCirc",
+            duration: 500,
+            onComplete: animateRandomPoints,
+          });
+        }
+
+        // Start the animation
+        animateRandomPoints();
+
+        // Optional interactive color cycle on click
+        const morphColors = [
+          "#FA6C98",
+          "#79EDFC",
+          "#FBFF48",
+          "#33FF57",
+          "#FF5E00",
+          "#A855F7",
+        ];
+        let morphColorIdx = 0;
+        const morphContainer = $path1.closest(".group");
+        if (morphContainer) {
+          morphContainer.addEventListener("click", () => {
+            morphColorIdx = (morphColorIdx + 1) % morphColors.length;
+            $path1.setAttribute("fill", morphColors[morphColorIdx]);
+          });
+        }
+      }
     </script>
   </body>
 </html>
