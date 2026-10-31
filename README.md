@@ -3,9 +3,6 @@
    Here is a refined **~500-word README.md** for your portfolio
 --
 
-
-
-
 # 🚀 Anmol Portfolio
 
 Welcome to my personal portfolio website — a place where I showcase my skills, projects, and growth as a developer. This portfolio reflects my journey as a B.Tech Data Science student who is passionate about building m   odern, user-friendly web experiences and continuously improving problem-solving skills.
