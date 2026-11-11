@@ -24,7 +24,6 @@ This project is built using modern web technologies:
 I focused on keeping the stack simple yet powerful to ensure performance, maintainability, and clean design.
 
 ---
-
 ## ✨ Features
 
 * Clean and modern user interface
