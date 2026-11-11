@@ -34,7 +34,6 @@ I focused on keeping the stack simple yet powerful to ensure performance, mainta
 * Fast loading and optimized performance
 
 ---
-
 ## 📂 Project Structure
 
 The project follows a simple and organized structure:
