@@ -13,7 +13,6 @@ I am currently pursuing B.Tech in Data Science and actively working on strengthe
 I believe in learning by building, which is why this portfolio is not just a showcase but also a representation of my practical skills. My goal is to become a top-level developer by mastering both problem-solving and development.
 
 ---
-
 ## 🛠️ Tech Stack
 
 This project is built using modern web technologies:
